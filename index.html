@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fire360</title>
+  <style>
+    :root{
+      --fire: #E4572E;      /* FIRE Orange */
+      --yellow: #FFC914;    /* Safety Yellow */
+      --maroon: #960200;    /* Deep Maroon */
+      --steel: #233142;     /* Cool Steel (neutral) */
+      --bg: #f7f7f9;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Inter,Arial,sans-serif;
+      color:#111; background:var(--bg);
+    }
+    header{
+      padding:72px 20px;
+      text-align:center;
+      background:linear-gradient(135deg,var(--fire), var(--maroon));
+      color:white;
+    }
+    header h1{ margin:0 0 8px; font-size:40px; letter-spacing:.5px }
+    header p{ margin:0 0 18px; opacity:.95 }
+    .btns a{
+      display:inline-block; margin:6px; padding:10px 14px; 
+      text-decoration:none; border-radius:10px; font-weight:600; color:#111;
+      background:var(--yellow);
+    }
+    .wrap{ max-width:900px; margin:28px auto; padding:0 20px }
+    .card{
+      background:#fff; border:1px solid #e9e9ee; border-radius:14px; padding:18px 18px;
+      box-shadow:0 4px 10px rgba(0,0,0,.04);
+      margin:16px 0;
+    }
+    h2{ margin:0 0 6px; font-size:22px; color:var(--steel) }
+    .tag{ display:inline-block; font-size:12px; font-weight:700; letter-spacing:.5px;
+      color:white; background:var(--fire); padding:3px 8px; border-radius:999px; margin-left:8px }
+    footer{
+      text-align:center; color:#666; font-size:13px; padding:24px 0 40px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Fire360 <span class="tag">Preview</span></h1>
+    <p>Reliability benchmark for degraded 360° firefighting scenarios.</p>
+    <div class="btns">
+      <a href="#">Paper (soon)</a>
+      <a href="#">Code (soon)</a>
+      <a href="#">Dataset (soon)</a>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="card">
+      <h2>Motivation</h2>
+      <p>Firefighting scenes push perception to its limits — smoke, heat, and motion everywhere. 360° vision captures full situational context where reliability saves lives.</p>
+    </section>
+
+    <section class="card">
+      <h2>Key Insight</h2>
+      <p><strong>VQA under degradation:</strong> humans stay ≈ <strong>90%</strong>, GPT-4o drops to <strong>single digits</strong> as smoke thickens and light fades.</p>
+    </section>
+
+    <section class="card">
+      <h2>What’s Inside</h2>
+      <ul>
+        <li>Professionally recorded 360° firefighter training videos</li>
+        <li>Tasks across perception, reasoning, and episodic memory</li>
+        <li>Evaluation under smoke, low light, thermal distortion, and occlusion</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    © 2025 Fire360 · UIUC · Colors: #E4572E · #FFC914 · #960200 · #233142
+  </footer>
+</body>
+</html>
