@@ -1,1255 +1,1255 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fire360 - Benchmark for Robust Perception in Degraded 360° Firefighting Video</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --fire-orange: #FF5722;
-            --fire-red: #D32F2F;
-            --deep-blue: #13293D;
-            --smoke-gray: #78909C;
-            --light-bg: #FAFAFA;
-            --card-bg: #FFFFFF;
-            --accent-yellow: #FFC107;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Crimson Pro', serif;
-            color: var(--deep-blue);
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            line-height: 1.7;
-        }
-
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(135deg, var(--deep-blue) 0%, #1a365d 100%);
-            color: white;
-            padding: 4rem 0 3rem;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                radial-gradient(circle at 20% 50%, rgba(255, 87, 34, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 50%, rgba(255, 193, 7, 0.1) 0%, transparent 50%);
-            pointer-events: none;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 1;
-        }
-
-        .logo-line {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.9rem;
-            opacity: 0.9;
-        }
-
-        .conference-badge {
-            background: var(--fire-red);
-            padding: 0.4rem 1rem;
-            border-radius: 20px;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-
-        h1 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 2.8rem;
-            font-weight: 900;
-            margin-bottom: 1.5rem;
-            line-height: 1.2;
-            letter-spacing: -0.5px;
-            text-align: center;
-        }
-
-        .fire360 {
-            color: var(--accent-yellow);
-            background: linear-gradient(135deg, var(--fire-orange), var(--accent-yellow));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .subtitle {
-            font-size: 1.3rem;
-            margin-bottom: 2rem;
-            opacity: 0.95;
-            font-weight: 400;
-        }
-
-        .authors {
-            font-size: 1.1rem;
-            margin-bottom: 0.5rem;
-            font-style: italic;
-        }
-
-        .authors a {
-            color: white;
-            text-decoration: none;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-            transition: border-color 0.3s ease;
-        }
-
-        .authors a:hover {
-            border-bottom-color: var(--accent-yellow);
-        }
-
-        .affiliation {
-            font-size: 1rem;
-            opacity: 0.85;
-            margin-bottom: 2rem;
-        }
-
-        .button-group {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            padding: 0.8rem 2rem;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.95rem;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .btn-primary {
-            background: var(--fire-orange);
-            color: white;
-            box-shadow: 0 4px 15px rgba(255, 87, 34, 0.3);
-        }
-
-        .btn-primary:hover {
-            background: var(--fire-red);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255, 87, 34, 0.4);
-        }
-
-        .btn-secondary {
-            background: rgba(255, 255, 255, 0.15);
-            color: white;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            backdrop-filter: blur(10px);
-        }
-
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.25);
-            border-color: rgba(255, 255, 255, 0.5);
-            transform: translateY(-2px);
-        }
-
-        /* TLDR Section */
-        .tldr {
-            background: linear-gradient(135deg, var(--fire-red), var(--fire-orange));
-            color: white;
-            padding: 2.5rem 0;
-            margin: 3rem 0;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .tldr::before {
-            content: 'TL;DR';
-            position: absolute;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 8rem;
-            font-weight: 900;
-            opacity: 0.05;
-            right: -2rem;
-            top: 50%;
-            transform: translateY(-50%);
-        }
-
-        .tldr-content {
-            position: relative;
-            z-index: 1;
-            font-size: 1.3rem;
-            font-weight: 600;
-            text-align: center;
-            max-width: 900px;
-            margin: 0 auto;
-            line-height: 1.6;
-        }
-
-        .tldr-highlight {
-            color: var(--accent-yellow);
-            font-weight: 700;
-        }
-
-        /* Main Content */
-        .content-section {
-            background: var(--card-bg);
-            margin: 3rem 0;
-            padding: 3rem;
-            border-radius: 16px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
-            animation: fadeInUp 0.6s ease-out;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        h2 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 2.2rem;
-            font-weight: 800;
-            margin-bottom: 1.5rem;
-            color: var(--deep-blue);
-            position: relative;
-            padding-bottom: 0.5rem;
-        }
-
-        h2::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 60px;
-            height: 4px;
-            background: linear-gradient(90deg, var(--fire-orange), var(--accent-yellow));
-            border-radius: 2px;
-        }
-
-        h3 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin: 2rem 0 1rem;
-            color: var(--deep-blue);
-        }
-
-        p {
-            font-size: 1.1rem;
-            margin-bottom: 1rem;
-            text-align: justify;
-        }
-
-        .highlight-box {
-            background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
-            border-left: 4px solid var(--fire-orange);
-            padding: 1.5rem;
-            margin: 2rem 0;
-            border-radius: 8px;
-        }
-
-        /* Dataset Grid */
-        .dataset-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin: 2rem 0;
-        }
-
-        .dataset-card {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            padding: 2rem;
-            border-radius: 12px;
-            text-align: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .dataset-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-        }
-
-        .dataset-number {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 3rem;
-            font-weight: 900;
-            color: var(--fire-orange);
-            line-height: 1;
-            margin-bottom: 0.5rem;
-        }
-
-        .dataset-label {
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--deep-blue);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        /* Task Grid */
-        .task-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem 0;
-        }
-
-        .task-card {
-            background: white;
-            border: 2px solid #e0e0e0;
-            padding: 1.8rem;
-            border-radius: 12px;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .task-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, var(--fire-orange), var(--accent-yellow));
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.3s ease;
-        }
-
-        .task-card:hover {
-            border-color: var(--fire-orange);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(255, 87, 34, 0.2);
-        }
-
-        .task-card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .task-number {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1rem;
-            font-weight: 700;
-            color: var(--fire-orange);
-            margin-bottom: 0.5rem;
-        }
-
-        .task-title {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--deep-blue);
-            margin-bottom: 0.8rem;
-        }
-
-        .task-description {
-            font-size: 1rem;
-            line-height: 1.6;
-            color: var(--smoke-gray);
-        }
-
-        /* Results Table */
-        .results-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 2rem 0;
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.95rem;
-            overflow: hidden;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .results-table thead {
-            background: linear-gradient(135deg, var(--deep-blue), #1a365d);
-            color: white;
-        }
-
-        .results-table th {
-            padding: 1rem;
-            text-align: left;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            font-size: 0.85rem;
-        }
-
-        .results-table td {
-            padding: 1rem;
-            border-bottom: 1px solid #e0e0e0;
-        }
-
-        .results-table tbody tr:hover {
-            background: #f5f7fa;
-        }
-
-        .results-table .best-result {
-            background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
-            font-weight: 700;
-            color: var(--fire-red);
-        }
-
-        /* TOR Section */
-        .tor-highlight {
-            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
-            border: 2px solid #2196F3;
-            padding: 2rem;
-            border-radius: 12px;
-            margin: 2rem 0;
-        }
-
-        .tor-title {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: #1976D2;
-            margin-bottom: 1rem;
-        }
-
-        .tor-stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin-top: 1.5rem;
-        }
-
-        .tor-stat {
-            text-align: center;
-        }
-
-        .tor-stat-number {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 2.5rem;
-            font-weight: 900;
-            color: #1976D2;
-        }
-
-        .tor-stat-label {
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--deep-blue);
-        }
-
-        /* Future Directions */
-        .future-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin: 2rem 0;
-        }
-
-        .future-card {
-            background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
-            padding: 2rem;
-            border-radius: 12px;
-            border-left: 5px solid #9C27B0;
-        }
-
-        .future-card h4 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: #7B1FA2;
-            margin-bottom: 1rem;
-        }
-
-        .future-card ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .future-card li {
-            padding: 0.5rem 0;
-            padding-left: 1.5rem;
-            position: relative;
-            font-size: 1rem;
-        }
-
-        .future-card li::before {
-            content: '→';
-            position: absolute;
-            left: 0;
-            color: #9C27B0;
-            font-weight: bold;
-        }
-
-        /* Citation Box */
-        .citation-box {
-            background: #263238;
-            color: #4CAF50;
-            padding: 2rem;
-            border-radius: 12px;
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.9rem;
-            margin: 2rem 0;
-            position: relative;
-            overflow-x: auto;
-        }
-
-        .citation-box pre {
-            margin: 0;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-        }
-
-        .copy-btn {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: rgba(76, 175, 80, 0.2);
-            border: 1px solid #4CAF50;
-            color: #4CAF50;
-            padding: 0.5rem 1rem;
-            border-radius: 6px;
-            cursor: pointer;
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.85rem;
-            transition: all 0.3s ease;
-        }
-
-        .copy-btn:hover {
-            background: rgba(76, 175, 80, 0.3);
-        }
-
-        /* Footer */
-        .footer {
-            background: var(--deep-blue);
-            color: white;
-            padding: 2rem 0;
-            text-align: center;
-            margin-top: 4rem;
-        }
-
-        .footer p {
-            font-size: 0.95rem;
-            opacity: 0.8;
-            text-align: center;
-        }
-
-        .footer a {
-            color: var(--accent-yellow);
-            text-decoration: none;
-        }
-
-        .footer a:hover {
-            text-decoration: underline;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2rem;
-            }
-
-            .subtitle {
-                font-size: 1.1rem;
-            }
-
-            .content-section {
-                padding: 2rem 1.5rem;
-            }
-
-            h2 {
-                font-size: 1.8rem;
-            }
-
-            .dataset-grid,
-            .task-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Image Placeholders */
-        .poster-image {
-            width: 100%;
-            max-width: 100%;
-            height: auto;
-            border-radius: 12px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-            margin: 2rem 0;
-        }
-
-        .dataset-preview {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin: 2rem 0;
-        }
-
-        .dataset-preview img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .dataset-preview img:hover {
-            transform: scale(1.05);
-        }
-
-        /* Expandable Section */
-        .expandable-section {
-            margin: 2rem 0;
-        }
-
-        .expand-button {
-            background: linear-gradient(135deg, var(--deep-blue), #1a365d);
-            color: white;
-            border: none;
-            padding: 1rem 2rem;
-            border-radius: 8px;
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: all 0.3s ease;
-        }
-
-        .expand-button:hover {
-            background: linear-gradient(135deg, #1a365d, var(--deep-blue));
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(19, 41, 61, 0.3);
-        }
-
-        .expand-button::after {
-            content: '▼';
-            transition: transform 0.3s ease;
-        }
-
-        .expand-button.active::after {
-            transform: rotate(180deg);
-        }
-
-        .expandable-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.5s ease-out;
-        }
-
-        .expandable-content.active {
-            max-height: 5000px;
-            transition: max-height 0.8s ease-in;
-        }
-
-        .expandable-inner {
-            padding: 2rem 0;
-        }
-
-        .result-image {
-            width: 100%;
-            max-width: 800px;
-            margin: 2rem auto;
-            display: block;
-            border-radius: 12px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-        }
-
-        .dataset-link-box {
-            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
-            border: 2px solid #4CAF50;
-            padding: 2rem;
-            border-radius: 12px;
-            text-align: center;
-            margin: 2rem 0;
-        }
-
-        .dataset-link-box h3 {
-            color: #2E7D32;
-            margin-bottom: 1rem;
-        }
-
-        .dataset-link-box a {
-            display: inline-block;
-            background: #4CAF50;
-            color: white;
-            padding: 1rem 2rem;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            font-family: 'IBM Plex Mono', monospace;
-            transition: all 0.3s ease;
-        }
-
-        .dataset-link-box a:hover {
-            background: #388E3C;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.3);
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <title>Fire360: Robust Perception & Episodic Memory in 360° Firefighting Video</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Minimal, modern font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg: #050708;
+      --bg-alt: #0c0f11;
+      --card: #111417;
+      --accent: #d8d8d8;
+      --accent-soft: #a5a5a5;
+      --text-main: #f5f5f5;
+      --text-muted: #a0a4aa;
+      --border-subtle: rgba(180,180,180,0.1);
+      --shadow-soft: 0 18px 45px rgba(0,0,0,0.55);
+      --radius-lg: 18px;
+      --radius-pill: 999px;
+      --transition-fast: 0.25s ease;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background: radial-gradient(circle at top, #1b1e22 0, #050708 50%);
+      color: var(--text-main);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 32px 20px 72px;
+    }
+
+    /* Top nav */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(18px);
+      background: radial-gradient(circle at top left, rgba(70,70,70,0.15), rgba(5,7,8,0.9));
+      border-radius: 999px;
+      border: 1px solid var(--border-subtle);
+      padding: 10px 20px;
+      margin: 0 auto 24px;
+      max-width: 1120px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.45);
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #ffffff, #bbbbbb);
+      box-shadow: 0 0 12px rgba(230,230,230,0.9);
+    }
+
+    .nav-title {
+      font-size: 0.9rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 18px;
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      position: relative;
+      padding-bottom: 4px;
+      cursor: pointer;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 1px;
+      background: var(--accent);
+      transition: width var(--transition-fast);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    /* Hero */
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.6fr) minmax(0, 1.1fr);
+      gap: 36px;
+      margin-top: 32px;
+      align-items: center;
+    }
+
+    @media (max-width: 880px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 12px;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border-subtle);
+      background: radial-gradient(circle at left, rgba(255,255,255,0.12), transparent 60%);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--accent-soft);
+      margin-bottom: 12px;
+    }
+
+    .badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #d6d6d6;
+    }
+
+    .hero-title {
+      font-size: clamp(2.1rem, 3.2vw, 2.7rem);
+      line-height: 1.08;
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+
+    .hero-subtitle {
+      font-size: 0.98rem;
+      color: var(--text-muted);
+      max-width: 34rem;
+      margin-bottom: 18px;
+    }
+
+    .hero-authors {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 18px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .btn {
+      border-radius: var(--radius-pill);
+      padding: 9px 18px;
+      font-size: 0.84rem;
+      border: 1px solid var(--border-subtle);
+      background: linear-gradient(135deg, #f3f3f3, #b8b8b8);
+      color: #050505;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.65);
+    }
+
+    .btn span.icon {
+      font-size: 0.9rem;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 18px 40px rgba(0,0,0,0.75);
+      background: linear-gradient(135deg, #ffffff, #cbcbcb);
+    }
+
+    .btn-secondary {
+      background: rgba(15,18,21,0.9);
+      color: var(--accent-soft);
+      border: 1px solid var(--border-subtle);
+      box-shadow: none;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(30,34,38,0.95);
+      box-shadow: 0 14px 34px rgba(0,0,0,0.45);
+      color: var(--accent);
+    }
+
+    .hero-meta {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+    }
+
+    .hero-right {
+      position: relative;
+    }
+
+    .hero-card {
+      background: radial-gradient(circle at top, #1b1f23 0, #090b0d 60%);
+      border-radius: 30px;
+      border: 1px solid var(--border-subtle);
+      padding: 18px 18px 16px;
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hero-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .hero-card-chip {
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border-subtle);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--accent-soft);
+    }
+
+    .hero-view {
+      position: relative;
+      background: radial-gradient(circle at center, #2f343b 0, #050708 70%);
+      border-radius: 24px;
+      height: 220px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      isolation: isolate;
+    }
+
+    .hero-view-inner {
+      width: 96%;
+      height: 70%;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.03);
+      background: radial-gradient(circle at center, #202429, #050708);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-view-scan {
+      position: absolute;
+      left: -20%;
+      right: -20%;
+      height: 26%;
+      background: linear-gradient(
+        to bottom,
+        rgba(255,255,255,0) 0,
+        rgba(255,255,255,0.16) 50%,
+        rgba(255,255,255,0) 100%
+      );
+      animation: scan 5s linear infinite;
+      mix-blend-mode: screen;
+      opacity: 0.4;
+    }
+
+    .hero-view-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px);
+      background-size: 32px 32px;
+      opacity: 0.35;
+      transform: translateY(-3px);
+    }
+
+    .hero-view-label {
+      position: absolute;
+      right: 18px;
+      top: 16px;
+      background: rgba(0,0,0,0.55);
+      padding: 6px 10px;
+      border-radius: var(--radius-pill);
+      font-size: 0.73rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent-soft);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .hero-stats {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 12px;
+      gap: 10px;
+      font-size: 0.75rem;
+    }
+
+    .hero-stat-item {
+      flex: 1;
+      border-radius: 12px;
+      border: 1px solid var(--border-subtle);
+      padding: 7px 10px;
+      background: radial-gradient(circle at top left, rgba(60,60,60,0.2), rgba(10,10,10,0.9));
+    }
+
+    .hero-stat-label {
+      color: var(--text-muted);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      margin-bottom: 4px;
+    }
+
+    .hero-stat-value {
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    @keyframes scan {
+      0% { transform: translateY(-50%); }
+      50% { transform: translateY(120%); }
+      100% { transform: translateY(-50%); }
+    }
+
+    /* Sections */
+    section {
+      margin-top: 64px;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 18px;
+      gap: 16px;
+    }
+
+    .section-title {
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--accent);
+    }
+
+    .section-tagline {
+      font-size: 0.86rem;
+      color: var(--text-muted);
+      max-width: 420px;
+    }
+
+    .section-body {
+      font-size: 0.94rem;
+      color: var(--text-muted);
+    }
+
+    .columns-two {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.2fr);
+      gap: 28px;
+    }
+
+    @media (max-width: 880px) {
+      .columns-two {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: radial-gradient(circle at top, #171b20 0, #07090b 60%);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-subtle);
+      padding: 18px 18px 16px;
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-subtitle {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--accent-soft);
+      margin-bottom: 8px;
+    }
+
+    .card-title {
+      font-size: 0.98rem;
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+
+    .card-text {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border-subtle);
+      padding: 4px 10px;
+      font-size: 0.73rem;
+      color: var(--text-muted);
+    }
+
+    .pill-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #d2d2d2;
+    }
+
+    /* Task grid */
+    .task-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 12px;
+    }
+
+    @media (max-width: 920px) {
+      .task-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .task-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .task-card {
+      background: linear-gradient(150deg, #13161a, #07090b);
+      border-radius: 16px;
+      border: 1px solid var(--border-subtle);
+      padding: 14px 14px 12px;
+      position: relative;
+      overflow: hidden;
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
+    }
+
+    .task-card::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background: radial-gradient(circle at top, rgba(255,255,255,0.12), transparent 60%);
+      opacity: 0;
+      transition: opacity var(--transition-fast);
+    }
+
+    .task-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 18px 45px rgba(0,0,0,0.7);
+      border-color: rgba(255,255,255,0.14);
+    }
+
+    .task-card:hover::before {
+      opacity: 1;
+    }
+
+    .task-title {
+      font-size: 0.92rem;
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+
+    .task-meta {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .task-text {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .task-chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      font-size: 0.72rem;
+    }
+
+    /* TOR highlight */
+    .tor-section {
+      margin-top: 48px;
+    }
+
+    .tor-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.1fr);
+      gap: 26px;
+      align-items: stretch;
+    }
+
+    @media (max-width: 880px) {
+      .tor-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .tor-diagram {
+      border-radius: 22px;
+      border: 1px solid var(--border-subtle);
+      padding: 16px;
+      background: radial-gradient(circle at top, #171b20, #07090b);
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .tor-diagram-header {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--accent-soft);
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .tor-flow {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    @media (max-width: 640px) {
+      .tor-flow {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .tor-node {
+      border-radius: 16px;
+      border: 1px solid var(--border-subtle);
+      padding: 10px 10px 9px;
+      position: relative;
+      background: linear-gradient(160deg, rgba(255,255,255,0.06), rgba(0,0,0,0.9));
+    }
+
+    .tor-node-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--accent-soft);
+      margin-bottom: 4px;
+    }
+
+    .tor-node-main {
+      font-size: 0.85rem;
+      margin-bottom: 4px;
+    }
+
+    .tor-node-sub {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .tor-arrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      color: var(--accent-soft);
+    }
+
+    .stat-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .stat-chip {
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border-subtle);
+      padding: 6px 10px;
+      font-size: 0.78rem;
+      color: var(--accent-soft);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(5,7,8,0.8);
+    }
+
+    .stat-chip strong {
+      color: var(--text-main);
+    }
+
+    /* Results table */
+    .results-table-wrapper {
+      margin-top: 12px;
+      border-radius: 18px;
+      border: 1px solid var(--border-subtle);
+      overflow: hidden;
+      background: radial-gradient(circle at top, #16191e, #050708);
+      box-shadow: var(--shadow-soft);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.83rem;
+    }
+
+    th, td {
+      padding: 9px 12px;
+      white-space: nowrap;
+    }
+
+    th {
+      text-align: left;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 0.74rem;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border-subtle);
+      background: rgba(5,7,8,0.95);
+    }
+
+    tbody tr:nth-child(odd) {
+      background: rgba(255,255,255,0.01);
+    }
+
+    tbody tr:hover {
+      background: rgba(255,255,255,0.02);
+    }
+
+    .cell-human {
+      color: #f5f5f5;
+      font-weight: 500;
+    }
+
+    .cell-gap {
+      color: var(--accent-soft);
+      font-size: 0.8rem;
+    }
+
+    /* Code block */
+    pre {
+      font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 0.8rem;
+      background: #050607;
+      border-radius: 12px;
+      border: 1px solid var(--border-subtle);
+      padding: 14px 16px;
+      overflow-x: auto;
+      color: #d4d4d4;
+    }
+
+    /* Footer */
+    .footer {
+      margin-top: 56px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border-subtle);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    /* Fade-in on scroll */
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
 </head>
 <body>
-    <!-- Hero Section -->
-    <div class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <div class="logo-line">
-                    <span>University of Illinois Urbana-Champaign</span>
-                    <span>•</span>
-                    <span>Illinois Fire Service Institute</span>
-                </div>
-                <div class="conference-badge">NeurIPS 2025 Datasets & Benchmarks Track Spotlight</div>
-                
-                <h1><span class="fire360">FIRE360</span>: A Benchmark for Robust Perception and Episodic Memory in Degraded 360° Firefighting Video</h1>
-                
-                <p class="authors">
-                    <a href="https://aditit.com" target="_blank">Aditi Tiwari</a>¹, Farzaneh Masoud², Dac Trong Nguyen¹, Jill Kraft², <a href="https://blender.cs.illinois.edu/hengji.html" target="_blank">Heng Ji</a>¹, <a href="https://cs.illinois.edu/about/people/faculty/klara" target="_blank">Klara Nahrstedt</a>¹
-                </p>
-                <p class="affiliation">
-                    ¹University of Illinois Urbana-Champaign, ²Illinois Fire Service Institute
-                </p>
-                
-                <div class="button-group">
-                    <a href="https://arxiv.org/abs/2506.02167" class="btn btn-primary" target="_blank">
-                        Paper
-                    </a>
-                    <a href="https://arxiv.org/pdf/2506.02167" class="btn btn-secondary" target="_blank">
-                        PDF
-                    </a>
-                    <a href="#" class="btn btn-secondary">
-                        Code (Coming Soon)
-                    </a>
-                    <a href="#dataset" class="btn btn-secondary">
-                        Dataset
-                    </a>
-                </div>
-            </div>
-        </div>
+  <!-- NAVBAR -->
+  <header class="nav">
+    <div class="nav-left">
+      <div class="nav-dot"></div>
+      <div class="nav-title">Fire360 · NeurIPS 2025</div>
     </div>
+    <nav class="nav-links">
+      <a href="#motivation">Motivation</a>
+      <a href="#dataset">Dataset</a>
+      <a href="#tasks">Tasks</a>
+      <a href="#tor">TOR</a>
+      <a href="#results">Results</a>
+      <a href="#resources">Resources</a>
+    </nav>
+  </header>
 
-    <!-- TL;DR Section -->
-    <div class="tldr">
-        <div class="container">
-            <div class="tldr-content">
-                <strong>AI works in clean data. It breaks in chaos.</strong> Fire360 tests if vision-language models can still <span class="tldr-highlight">see, remember, and reason</span> when smoke blinds, heat warps, and fire reshapes reality. Models scoring <span class="tldr-highlight">97% on clean data drop to 6% in smoke</span>. Current answer: <span class="tldr-highlight">No</span>. Human-model gap: <span class="tldr-highlight">54%</span>.
-            </div>
+  <main class="page">
+    <!-- HERO -->
+    <section class="hero reveal">
+      <div>
+        <div class="badge">
+          <span class="badge-dot"></span>
+          <span>Benchmark · 360° Firefighting</span>
         </div>
-    </div>
+        <h1 class="hero-title">
+          Fire360: Robust Perception & Episodic Memory in Degraded 360° Firefighting Video
+        </h1>
+        <p class="hero-subtitle">
+          A 50-hour benchmark of professional fire training sessions that probes spatial reasoning,
+          safety-critical procedures, and transformation-invariant retrieval under dense smoke,
+          low light, and structural deformation.
+        </p>
+        <p class="hero-authors">
+          <strong>Aditi Tiwari</strong>, Farzaneh Masoud, Dac Trong Nguyen, Jill Kraft, Heng Ji, Klara Nahrstedt<br/>
+          University of Illinois Urbana–Champaign · Illinois Fire Service Institute
+        </p>
+        <div class="hero-buttons">
+          <a href="PAPER_LINK_HERE" class="btn" target="_blank" rel="noreferrer">
+            <span class="icon">⬇</span>
+            <span>Paper (PDF)</span>
+          </a>
+          <a href="DATASET_LINK_HERE" class="btn btn-secondary" target="_blank" rel="noreferrer">
+            <span class="icon">🎞</span>
+            <span>Dataset & Toolkit</span>
+          </a>
+          <a href="CODE_REPO_LINK_HERE" class="btn btn-secondary" target="_blank" rel="noreferrer">
+            <span class="icon">💻</span>
+            <span>Code (Coming Soon)</span>
+          </a>
+        </div>
+        <div class="hero-meta">
+          228 videos · 5 benchmark tasks · 43.7% human–model gap on transformed object retrieval
+        </div>
+      </div>
 
-    <!-- Abstract -->
-    <div class="container">
-        <div class="content-section">
-            <h2>Abstract</h2>
-            <p>
-                Modern AI systems struggle most in environments where reliability is critical—scenes with smoke, poor visibility, and structural deformation. Each year, tens of thousands of firefighters are injured on duty, often due to breakdowns in situational perception.
+      <div class="hero-right">
+        <div class="hero-card">
+          <div class="hero-card-header">
+            <span>Fire360 scene representation</span>
+            <span class="hero-card-chip">360° Panoramic · Equirectangular</span>
+          </div>
+          <div class="hero-view">
+            <div class="hero-view-inner">
+              <div class="hero-view-grid"></div>
+              <div class="hero-view-scan"></div>
+            </div>
+            <div class="hero-view-label">
+              Degraded Visibility · Smoke Level 4
+            </div>
+          </div>
+          <div class="hero-stats">
+            <div class="hero-stat-item">
+              <div class="hero-stat-label">Duration</div>
+              <div class="hero-stat-value">50 hours</div>
+            </div>
+            <div class="hero-stat-item">
+              <div class="hero-stat-label">Videos</div>
+              <div class="hero-stat-value">228</div>
+            </div>
+            <div class="hero-stat-item">
+              <div class="hero-stat-label">Tasks</div>
+              <div class="hero-stat-value">VQA · TAC · Loc · Safety · TOR</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MOTIVATION -->
+    <section id="motivation" class="reveal">
+      <div class="section-header">
+        <h2 class="section-title">Motivation</h2>
+        <p class="section-tagline">
+          Firefighters operate in dense smoke, collapsing structures, and thermal distortion. Fire360
+          asks whether modern AI can maintain reliable perception and memory when visibility is
+          worst—exactly when it matters most.
+        </p>
+      </div>
+
+      <div class="columns-two">
+        <div class="section-body">
+          <p>
+            In 2023, over sixty thousand U.S. firefighters were injured on duty, with many incidents
+            linked to breakdowns in situational perception under low visibility. Traditional
+            datasets focus on clean 2D imagery, short clips, or synthetic simulations, and rarely
+            capture the compound stressors of real incident scenes: smoke, occlusion, glare,
+            structural deformation, and multi-agent coordination.
+          </p>
+          <br/>
+          <p>
+            Fire360 is built from professionally recorded 360° training sessions, annotated with
+            actions, objects, and degradation metadata. It targets the capabilities that human
+            responders rely on most: robust spatial grounding, temporal understanding of protocols,
+            safety-critical reasoning, and episodic memory that can recognize gear after it has
+            melted, charred, or disappeared into smoke.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="card-subtitle">Capability Gap</div>
+          <div class="card-title">Where models fail and humans do not</div>
+          <p class="card-text">
+            Human experts retain over <strong>80% accuracy</strong> across all degradation levels on Fire360,
+            and <strong>83.5%</strong> on the transformed object retrieval task. State-of-the-art multimodal
+            models fall to <strong>~40%</strong> under the same conditions, misidentifying melted helmets as
+            pipes and charred hoses as background debris.
+          </p>
+          <br/>
+          <div class="pill">
+            <span class="pill-dot"></span>
+            <span>Benchmarking robust perception where failure is operational, not theoretical.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DATASET -->
+    <section id="dataset" class="reveal">
+      <div class="section-header">
+        <h2 class="section-title">Dataset Overview</h2>
+        <p class="section-tagline">
+          360° firefighter training video with expert-verified annotations for actions, objects,
+          and environmental degradation.
+        </p>
+      </div>
+      <div class="columns-two">
+        <div class="section-body">
+          <p>
+            Fire360 comprises <strong>228</strong> emergency response videos (approximately
+            <strong>180,000 seconds</strong> / 50 hours) recorded at a professional firefighter training
+            institute. Cameras capture both tripod-mounted third-person views and helmet-mounted
+            or handheld egocentric perspectives, across indoor rescues and outdoor suppression
+            scenarios, day and night.
+          </p>
+          <br/>
+          <p>
+            Each video is annotated with temporal action segments, object bounding boxes, and
+            environmental metadata such as smoke level, visibility, heat distortion, and
+            multi-agent interaction. Annotations are verified by certified instructors, with
+            strong inter-annotator agreement on both actions and objects.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="card-subtitle">Composition</div>
+          <div class="card-title">Scene diversity & annotation schema</div>
+          <ul class="card-text" style="list-style: none; padding-left: 0;">
+            <li>• 43.9% indoor, 56.1% outdoor; day, night, and mixed light.</li>
+            <li>• 8 high-risk actions (e.g., civilian carry, ladder climb, window break).</li>
+            <li>• 6 safety-critical object classes (e.g., civilian, fire, gas mask, helmet).</li>
+            <li>• Smoke levels 1–5, heat and visibility tags, structural hazards.</li>
+            <li>• Train/val/test split: 60% / 20% / 20%, stratified by degradation.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- TASKS -->
+    <section id="tasks" class="reveal">
+      <div class="section-header">
+        <h2 class="section-title">Benchmark Tasks</h2>
+        <p class="section-tagline">
+          Five tasks probe complementary capabilities: spatial grounding, temporal understanding,
+          safety reasoning, localization under distortion, and transformation-invariant retrieval.
+        </p>
+      </div>
+
+      <div class="task-grid">
+        <div class="task-card">
+          <div class="task-title">360° Visual Question Answering (VQA)</div>
+          <div class="task-meta">Spatial reasoning · Checklist-style queries</div>
+          <p class="task-text">
+            Models answer expert-authored questions about object presence, protocol adherence,
+            and visibility in full panoramic frames (e.g., “Is the exit door visible through
+            the smoke?”).
+          </p>
+          <div class="task-chip-row">
+            <span class="pill">Metric: Top-1 accuracy</span>
+            <span class="pill">Human: 91.4%</span>
+            <span class="pill">GPT-4o: 53.8%</span>
+          </div>
+        </div>
+
+        <div class="task-card">
+          <div class="task-title">Temporal Action Captioning</div>
+          <div class="task-meta">Incident summarization · 10–20s clips</div>
+          <p class="task-text">
+            Given a short degraded clip, models must produce grounded action descriptions
+            (e.g., “Responder breaks glass to enter a burning room.”).
+          </p>
+          <div class="task-chip-row">
+            <span class="pill">Metric: BLEU-4</span>
+            <span class="pill">Human: 0.85</span>
+            <span class="pill">GLaMM-7B: 0.341</span>
+          </div>
+        </div>
+
+        <div class="task-card">
+          <div class="task-title">Object Localization under Distortion</div>
+          <div class="task-meta">Detection · Smoke & geometric stretch</div>
+          <p class="task-text">
+            Category-agnostic localization of safety gear (SCBA, helmets, hoses) in 360°
+            equirectangular frames, evaluated via mean IoU.
+          </p>
+          <div class="task-chip-row">
+            <span class="pill">Metric: Mean IoU</span>
+            <span class="pill">Human: 85.2%</span>
+            <span class="pill">Grounding DINO: 38.4%</span>
+          </div>
+        </div>
+
+        <div class="task-card">
+          <div class="task-title">Safety-Critical Reasoning</div>
+          <div class="task-meta">Procedural compliance · Safe/unsafe + rationale</div>
+          <p class="task-text">
+            Models must label frames or clips as safe or unsafe and justify their decision,
+            aligned with firefighter safety checklists (e.g., two-point ladder contact, sealed
+            gas mask).
+          </p>
+          <div class="task-chip-row">
+            <span class="pill">Metric: Checklist accuracy</span>
+            <span class="pill">Human: 94.6%</span>
+            <span class="pill">GPT-4o: 28.9%</span>
+          </div>
+        </div>
+
+        <div class="task-card">
+          <div class="task-title">Transformed Object Retrieval (TOR)</div>
+          <div class="task-meta">Episodic memory · Core contribution</div>
+          <p class="task-text">
+            Given a pristine exemplar (e.g., clean helmet), models must retrieve the same object
+            after irreversible fire damage in a different, unpaired scene.
+          </p>
+          <div class="task-chip-row">
+            <span class="pill">Metric: Top-1 accuracy (IoU ≥ 0.5)</span>
+            <span class="pill">Human: 83.5%</span>
+            <span class="pill">GPT-4o: 39.8%</span>
+          </div>
+        </div>
+
+        <div class="task-card">
+          <div class="task-title">Extended Model Families</div>
+          <div class="task-meta">Robustness across architectures</div>
+          <p class="task-text">
+            Fire360 evaluates instruction-tuned VLMs, captioners, open-vocabulary detectors,
+            and safety-specialized classifiers. All exhibit consistent degradation-induced
+            failures, independent of architecture.
+          </p>
+          <div class="task-chip-row">
+            <span class="pill">Avg human–model gap &gt; 50%</span>
+            <span class="pill">17 models evaluated</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TOR SECTION -->
+    <section id="tor" class="tor-section reveal">
+      <div class="section-header">
+        <h2 class="section-title">Transformed Object Retrieval (TOR)</h2>
+        <p class="section-tagline">
+          Can a model recognize a firefighter’s gear once flame, smoke, and debris have warped it
+          beyond recognition—without any before/after pairing?
+        </p>
+      </div>
+
+      <div class="tor-layout">
+        <div>
+          <div class="tor-diagram">
+            <div class="tor-diagram-header">
+              <span>Task formulation</span>
+              <span class="pill"><span class="pill-dot"></span> Episodic memory under structural deformation</span>
+            </div>
+
+            <div class="tor-flow">
+              <div class="tor-node">
+                <div class="tor-node-label">Reference</div>
+                <div class="tor-node-main">Pristine exemplar</div>
+                <div class="tor-node-sub">
+                  Clean view of a helmet, SCBA, or hose captured outside the fire zone.
+                </div>
+              </div>
+
+              <div class="tor-arrow">
+                ⟶
+              </div>
+
+              <div class="tor-node">
+                <div class="tor-node-label">Retrieval Scene</div>
+                <div class="tor-node-main">Unpaired 360° frame</div>
+                <div class="tor-node-sub">
+                  Separate fire scene: dense smoke, occlusion, charring, geometric distortion.
+                  No temporal or spatial continuity.
+                </div>
+              </div>
+            </div>
+
+            <div class="tor-flow" style="margin-top: 10px;">
+              <div class="tor-node">
+                <div class="tor-node-label">Candidates</div>
+                <div class="tor-node-main">Region proposals</div>
+                <div class="tor-node-sub">
+                  Grounding DINO proposes ~36 regions per frame; a vision-language encoder
+                  scores similarity against the exemplar.
+                </div>
+              </div>
+
+              <div class="tor-arrow">
+                ⟶
+              </div>
+
+              <div class="tor-node">
+                <div class="tor-node-label">Success condition</div>
+                <div class="tor-node-main">Top-1 retrieval</div>
+                <div class="tor-node-sub">
+                  Retrieved region overlaps expert-annotated target with IoU ≥ 0.5.
+                </div>
+              </div>
+            </div>
+
+            <div class="stat-row">
+              <div class="stat-chip">
+                <strong>154</strong> degraded targets · <strong>50</strong> exemplars · <strong>20</strong> categories
+              </div>
+              <div class="stat-chip">
+                Common failure: pipes mistaken for melted helmets; hoses lost in debris.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-subtitle">Findings</div>
+          <div class="card-title">A 43.7-point gap in transformation-invariant retrieval</div>
+          <p class="card-text">
+            TOR exposes a key missing capability in current models: maintaining object identity
+            through irreversible physical change without seeing the transformation unfold.
+            Despite strong performance on clean retrieval benchmarks, models collapse when
+            texture, shape, or context are heavily distorted by fire.
+          </p>
+          <br/>
+          <ul class="card-text" style="list-style: none; padding-left: 0;">
+            <li>• GPT-4o: <strong>39.8%</strong> top-1 TOR accuracy vs. human <strong>83.5%</strong>.</li>
+            <li>• CLIP / BLIP-2: lower performance, heavily distracted by similar shapes.</li>
+            <li>• Performance is most brittle near equirectangular poles with high distortion.</li>
+          </ul>
+          <br/>
+          <p class="card-text">
+            TOR generalizes beyond firefighting: medical imaging (tracking deformed tissue),
+            post-disaster insurance workflows (identifying burnt items), and manufacturing
+            (tracing visually altered components).
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESULTS -->
+    <section id="results" class="reveal">
+      <div class="section-header">
+        <h2 class="section-title">Model Performance</h2>
+        <p class="section-tagline">
+          Fire360 surfaces consistent degradation-induced failures across VLMs, captioners,
+          detectors, and safety classifiers—even when architectures differ.
+        </p>
+      </div>
+
+      <div class="results-table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Task</th>
+              <th>Metric</th>
+              <th>Best Model</th>
+              <th>Model Score</th>
+              <th>Human</th>
+              <th>Gap</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>360° VQA</td>
+              <td>Top-1 accuracy</td>
+              <td>GPT-4o</td>
+              <td>53.8%</td>
+              <td class="cell-human">91.4%</td>
+              <td class="cell-gap">−37.6 pts</td>
+            </tr>
+            <tr>
+              <td>Temporal Action Captioning</td>
+              <td>BLEU-4</td>
+              <td>GLaMM-7B</td>
+              <td>0.341</td>
+              <td class="cell-human">0.85</td>
+              <td class="cell-gap">−0.509</td>
+            </tr>
+            <tr>
+              <td>Object Localization</td>
+              <td>Mean IoU</td>
+              <td>Grounding DINO</td>
+              <td>38.4%</td>
+              <td class="cell-human">85.2%</td>
+              <td class="cell-gap">−46.8 pts</td>
+            </tr>
+            <tr>
+              <td>Safety-Critical Reasoning</td>
+              <td>Checklist accuracy</td>
+              <td>Qwen-VL</td>
+              <td>32.5%</td>
+              <td class="cell-human">94.6%</td>
+              <td class="cell-gap">−62.1 pts</td>
+            </tr>
+            <tr>
+              <td>Transformed Object Retrieval (TOR)</td>
+              <td>Top-1 accuracy</td>
+              <td>GPT-4o</td>
+              <td>39.8%</td>
+              <td class="cell-human">83.5%</td>
+              <td class="cell-gap">−43.7 pts</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- RESOURCES / TOOLKIT -->
+    <section id="resources" class="reveal">
+      <div class="section-header">
+        <h2 class="section-title">Toolkit & Resources</h2>
+        <p class="section-tagline">
+          Preprocessing, evaluation scripts, and prompt templates to reproduce all experiments
+          and extend Fire360 to new models.
+        </p>
+      </div>
+
+      <div class="columns-two">
+        <div class="card">
+          <div class="card-subtitle">Toolkit</div>
+          <div class="card-title">What we provide</div>
+          <ul class="card-text" style="list-style: none; padding-left: 0;">
+            <li>• Equirectangular → rectilinear conversion utilities (OpenCV-based).</li>
+            <li>• Evaluation scripts for all five tasks, including degradation-aware splits.</li>
+            <li>• Grounding DINO configuration for proposal generation in TOR.</li>
+            <li>• Prompt templates and checklists for VQA, Safety, and TOR.</li>
+            <li>• Example outputs and confidence intervals for model comparison.</li>
+          </ul>
+          <br/>
+          <p class="card-text">
+            Full test set evaluation requires ~4 GPU-hours on A40s or ~2.5 on A100s; the raw
+            dataset occupies ~400GB.
+          </p>
+        </div>
+
+        <div>
+          <div class="card" style="margin-bottom: 18px;">
+            <div class="card-subtitle">Ethics & Use</div>
+            <div class="card-title">Responsible release</div>
+            <p class="card-text">
+              All videos document professional training drills conducted with informed consent.
+              No personally identifiable information is included; all participants appear in
+              protective gear. The dataset is released for research on safety-critical perception
+              and robust multimodal reasoning, with license terms that prohibit surveillance,
+              behavioral profiling, or non-consensual monitoring.
             </p>
-            <p>
-                We introduce <strong>Fire360</strong>, a benchmark for evaluating perception and reasoning in safety-critical firefighting scenarios. The dataset includes 228 360-degree videos from professional training sessions under diverse conditions (e.g., low light, thermal distortion), annotated with action segments, object locations, and degradation metadata.
-            </p>
-            <p>
-                Fire360 supports five tasks: <strong>Visual Question Answering</strong>, <strong>Temporal Action Captioning</strong>, <strong>Object Localization</strong>, <strong>Safety-Critical Reasoning</strong>, and <strong>Transformed Object Retrieval (TOR)</strong>. TOR tests whether models can match pristine exemplars to fire-damaged counterparts in unpaired scenes, evaluating transformation-invariant recognition.
-            </p>
-            <div class="highlight-box">
-                <strong>Key Finding:</strong> While human experts achieve 83.5% on TOR, models like GPT-4o lag significantly at 27%, exposing fundamental failures in reasoning under degradation. By releasing Fire360 and its evaluation suite, we aim to advance models that not only see, but also remember, reason, and act under uncertainty.
-            </div>
-        </div>
+          </div>
 
-        <!-- Dataset Overview -->
-        <div class="content-section" id="dataset">
-            <h2>Fire360 Dataset</h2>
-            <p>
-                Fire360 contains 228 360-degree videos captured during real firefighter training sessions across diverse scenarios: daytime exterior drills, nighttime outdoor burns, indoor rescue operations, and indoor training environments. Each video captures the full situational context where reliability saves lives.
-            </p>
-
-            <!-- Dataset Preview Images -->
-            <div class="dataset-preview">
-                <img src="daytime_training.jpg" alt="Daytime Training - Exterior Drill">
-                <img src="nighttime_training.jpg" alt="Nighttime Training - Outdoor Burn">
-                <img src="indoor_rescue.jpg" alt="Indoor Rescue Operation">
-                <img src="indoor_training.jpg" alt="Indoor Training Environment">
-            </div>
-
-            <div class="dataset-link-box">
-                <h3>Access Fire360 Dataset</h3>
-                <p style="margin-bottom: 1rem; font-size: 1rem;">Download the complete dataset with annotations</p>
-                <a href="YOUR_BOX_FOLDER_LINK_HERE" target="_blank">Download from Box</a>
-            </div>
-            
-            <div class="dataset-grid">
-                <div class="dataset-card">
-                    <div class="dataset-number">228</div>
-                    <div class="dataset-label">360° Videos</div>
-                </div>
-                <div class="dataset-card">
-                    <div class="dataset-number">5</div>
-                    <div class="dataset-label">Benchmark Tasks</div>
-                </div>
-                <div class="dataset-card">
-                    <div class="dataset-number">4</div>
-                    <div class="dataset-label">Scene Categories</div>
-                </div>
-                <div class="dataset-card">
-                    <div class="dataset-number">63K+</div>
-                    <div class="dataset-label">Injuries/Year</div>
-                </div>
-            </div>
-
-            <!-- Dataset Statistics Visualization -->
-            <h3>Dataset Statistics</h3>
-            <img src="dataset_statistics.jpg" alt="Fire360 Dataset Statistics - Scene Categories, Action Instances, and Object Classes" class="poster-image">
-
-            <h3>Scene Categories</h3>
-            <p>
-                <strong>Daytime Training:</strong> Exterior drills in clear visibility<br>
-                <strong>Nighttime Training:</strong> Outdoor burns with poor lighting and heavy smoke<br>
-                <strong>Indoor Rescue Operation:</strong> Thermal distortion and confined spaces<br>
-                <strong>Indoor Training Environment:</strong> Smoke obstruction and controlled chaos
-            </p>
-
-            <h3>Failure Factors in Degraded Visual Understanding</h3>
-            <img src="failure_factors.jpg" alt="Four Critical Failure Modes in Degraded Visual Understanding" class="poster-image">
-            <p>Fire360 exposes four critical failure modes:</p>
-            <ul style="list-style-position: inside; margin-left: 1rem;">
-                <li><strong>Poor episodic memory under change:</strong> Low object identity cross-temporal transformations</li>
-                <li><strong>No measured transformation priors:</strong> Charring, deformation, obscuring</li>
-                <li><strong>Weak spatial reasoning in 360°:</strong> Fail on equirectangular distortion artifacts</li>
-                <li><strong>Failed on cluttered, occluded data:</strong> No exposure to smoke, occlusion, or debris-covered scenes</li>
-            </ul>
-        </div>
-
-        <!-- Benchmark Tasks -->
-        <div class="content-section">
-            <h2>Benchmark Tasks</h2>
-            <p>Fire360 exposes failures across perception, reasoning, and memory:</p>
-
-            <!-- Benchmark Tasks Overview Image -->
-            <img src="benchmark_tasks_overview.jpg" alt="Five Benchmark Tasks Overview" class="poster-image">
-            
-            <div class="task-grid">
-                <div class="task-card">
-                    <div class="task-number">TASK 1</div>
-                    <div class="task-title">Visual QA</div>
-                    <div class="task-description">
-                        Spatial reasoning and full 360° field-of-view understanding under heavy degradation. Tests if models can answer questions about occluded, distorted scenes.
-                    </div>
-                </div>
-                
-                <div class="task-card">
-                    <div class="task-number">TASK 2</div>
-                    <div class="task-title">Temporal Captioning</div>
-                    <div class="task-description">
-                        Generate natural language descriptions of firefighter actions. Tests whether models can produce semantically accurate, procedurally distinct captions.
-                    </div>
-                </div>
-                
-                <div class="task-card">
-                    <div class="task-number">TASK 3</div>
-                    <div class="task-title">Object Localization</div>
-                    <div class="task-description">
-                        Locate safety equipment (hoses, masks) under occlusion, thermal blur, and 360° panoramic projection distortion.
-                    </div>
-                </div>
-                
-                <div class="task-card">
-                    <div class="task-number">TASK 4</div>
-                    <div class="task-title">Safety Reasoning</div>
-                    <div class="task-description">
-                        Identify violations of standard firefighter safety protocols using expert-verified checklists. Tests domain-specific protocol knowledge.
-                    </div>
-                </div>
-                
-                <div class="task-card">
-                    <div class="task-number">TASK 5</div>
-                    <div class="task-title">Transformed Object Retrieval (TOR)</div>
-                    <div class="task-description">
-                        Match pristine exemplars to fire-damaged counterparts in unpaired scenes. Tests transformation-invariant recognition and episodic memory.
-                    </div>
-                </div>
-            </div>
-
-            <h3 style="margin-top: 3rem;">Why Models Fail</h3>
-            <div class="task-grid">
-                <div class="task-card">
-                    <div class="task-title" style="color: var(--fire-red);">Visual QA</div>
-                    <div class="task-description">
-                        Hallucinate objects in occluded regions. Accuracy drops to 6.1% in heavy smoke (vs. 81.3% for humans).
-                    </div>
-                </div>
-                
-                <div class="task-card">
-                    <div class="task-title" style="color: var(--fire-red);">Temporal Captioning</div>
-                    <div class="task-description">
-                        Confuse visually similar but procedurally distinct actions. Generic captions lack domain specificity.
-                    </div>
-                </div>
-                
-                <div class="task-card">
-                    <div class="task-title" style="color: var(--fire-red);">Object Localization</div>
-                    <div class="task-description">
-                        IoU drops to 72.9% in low-visibility scenes. Cannot handle panoramic projection distortion.
-                    </div>
-                </div>
-                
-                <div class="task-card">
-                    <div class="task-title" style="color: var(--fire-red);">Safety Reasoning</div>
-                    <div class="task-description">
-                        Cannot infer procedural violations. Lack domain-specific protocol knowledge.
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- TOR Highlight -->
-        <div class="content-section">
-            <div class="tor-highlight">
-                <div class="tor-title">Transformed Object Retrieval (TOR): A Novel Challenge</div>
-                <p style="font-size: 1.1rem; margin-bottom: 1rem;">
-                    <strong>Core Idea:</strong> Can AI recognize the same equipment <em>after fire destroys its appearance?</em>
-                </p>
-
-                <!-- TOR Concept Visualization -->
-                <img src="tor_concept.jpg" alt="TOR: Matching pristine objects to fire-damaged counterparts" class="poster-image">
-
-                <p style="font-size: 1rem; line-height: 1.7;">
-                    TOR tests transformation-invariant object recognition by asking models to match pristine "query" objects to their fire-damaged counterparts in different video scenes. This reveals fundamental failures in episodic memory and cross-scene reasoning under physical transformation.
-                </p>
-                
-                <div class="tor-stats">
-                    <div class="tor-stat">
-                        <div class="tor-stat-number">83.5%</div>
-                        <div class="tor-stat-label">Human Expert Accuracy</div>
-                    </div>
-                    <div class="tor-stat">
-                        <div class="tor-stat-number">27%</div>
-                        <div class="tor-stat-label">GPT-4o Accuracy</div>
-                    </div>
-                    <div class="tor-stat">
-                        <div class="tor-stat-number">54%</div>
-                        <div class="tor-stat-label">Gap: Human-Model</div>
-                    </div>
-                </div>
-
-                <p style="font-size: 1rem; margin-top: 1.5rem; font-style: italic;">
-                    <strong>Why it matters:</strong> TOR exposes that models fail at the very task humans excel at—recognizing objects across radical physical transformations. This challenges the notion that current vision-language models possess robust episodic memory.
-                </p>
-            </div>
-        </div>
-
-        <!-- Results -->
-        <div class="content-section">
-            <h2>Key Results</h2>
-            
-            <h3>Table 1: Main Results Across All Five Tasks</h3>
-            <p style="margin-bottom: 1.5rem;">Comprehensive evaluation showing model performance degradation under challenging firefighting conditions.</p>
-            
-            <table class="results-table">
-                <thead>
-                    <tr>
-                        <th>Task</th>
-                        <th>Metric</th>
-                        <th>GPT-4o</th>
-                        <th>Gemini 1.5 Pro</th>
-                        <th>Claude 3.7</th>
-                        <th>Human</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>Visual QA</strong></td>
-                        <td>Accuracy (%)</td>
-                        <td>27.2</td>
-                        <td>25.8</td>
-                        <td>24.1</td>
-                        <td class="best-result">81.3</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Temporal Captioning</strong></td>
-                        <td>CIDEr</td>
-                        <td>18.5</td>
-                        <td>16.9</td>
-                        <td>15.2</td>
-                        <td class="best-result">76.8</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Object Localization</strong></td>
-                        <td>IoU (%)</td>
-                        <td>42.3</td>
-                        <td>39.7</td>
-                        <td>38.1</td>
-                        <td class="best-result">72.9</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Safety Reasoning</strong></td>
-                        <td>F1 Score</td>
-                        <td>31.4</td>
-                        <td>28.6</td>
-                        <td>27.9</td>
-                        <td class="best-result">85.7</td>
-                    </tr>
-                    <tr>
-                        <td><strong>TOR</strong></td>
-                        <td>Recall@5 (%)</td>
-                        <td>27.0</td>
-                        <td>24.5</td>
-                        <td>22.8</td>
-                        <td class="best-result">83.5</td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <div class="highlight-box" style="margin-top: 2rem;">
-                <strong>Critical Insight:</strong> Models collapse under degradation that humans navigate routinely. Across all tasks, the human-model gap exceeds 50%, revealing that current vision systems lack the episodic memory and transformation-invariant reasoning needed for safety-critical deployment.
-            </div>
-
-            <!-- Expandable Additional Results -->
-            <div class="expandable-section">
-                <button class="expand-button" onclick="toggleExpand(this)">
-                    View Additional Results & Analysis
-                </button>
-                <div class="expandable-content">
-                    <div class="expandable-inner">
-                        
-                        <h3>Performance vs. Degradation Level</h3>
-                        <p>Visual QA accuracy drops dramatically as smoke density increases:</p>
-                        <table class="results-table">
-                            <thead>
-                                <tr>
-                                    <th>Smoke Condition</th>
-                                    <th>GPT-4o</th>
-                                    <th>Gemini 1.5 Pro</th>
-                                    <th>Claude 3.7</th>
-                                    <th>Human</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><strong>Clear (No Smoke)</strong></td>
-                                    <td>76.8%</td>
-                                    <td>74.2%</td>
-                                    <td>72.1%</td>
-                                    <td class="best-result">97.3%</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Low Smoke</strong></td>
-                                    <td>47.6%</td>
-                                    <td>45.3%</td>
-                                    <td>43.8%</td>
-                                    <td class="best-result">92.1%</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Medium Smoke</strong></td>
-                                    <td>38.2%</td>
-                                    <td>35.6%</td>
-                                    <td>33.9%</td>
-                                    <td class="best-result">89.7%</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Heavy Smoke</strong></td>
-                                    <td>6.1%</td>
-                                    <td>5.3%</td>
-                                    <td>4.8%</td>
-                                    <td class="best-result">81.3%</td>
-                                </tr>
-                            </tbody>
-                        </table>
-
-                        <!-- Performance Heatmap -->
-                        <h3 style="margin-top: 3rem;">Task Performance Heatmap</h3>
-                        <p>Visualization of model performance across different tasks and conditions:</p>
-                        <img src="performance_heatmap.jpg" alt="Performance heatmap showing model failures across tasks" class="result-image">
-
-                        <h3 style="margin-top: 3rem;">Object Localization Results</h3>
-                        <img src="object_localization_results.jpg" alt="Object localization performance under occlusion and distortion" class="result-image">
-
-                        <h3 style="margin-top: 3rem;">Temporal Action Captioning Analysis</h3>
-                        <img src="temporal_captioning_analysis.jpg" alt="Temporal action captioning quality comparison" class="result-image">
-
-                        <h3 style="margin-top: 3rem;">Safety Reasoning Results</h3>
-                        <table class="results-table">
-                            <thead>
-                                <tr>
-                                    <th>Protocol Category</th>
-                                    <th>GPT-4o F1</th>
-                                    <th>Human F1</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>PPE Compliance</td>
-                                    <td>42.1%</td>
-                                    <td class="best-result">91.3%</td>
-                                </tr>
-                                <tr>
-                                    <td>Team Coordination</td>
-                                    <td>28.7%</td>
-                                    <td class="best-result">84.6%</td>
-                                </tr>
-                                <tr>
-                                    <td>Equipment Usage</td>
-                                    <td>35.2%</td>
-                                    <td class="best-result">88.9%</td>
-                                </tr>
-                                <tr>
-                                    <td>Scene Safety</td>
-                                    <td>19.4%</td>
-                                    <td class="best-result">79.2%</td>
-                                </tr>
-                            </tbody>
-                        </table>
-
-                        <h3 style="margin-top: 3rem;">TOR: Detailed Results by Model</h3>
-                        <img src="tor_detailed_results.jpg" alt="TOR detailed results comparison across models" class="result-image">
-
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Future Directions -->
-        <div class="content-section">
-            <h2>Research Directions Enabled</h2>
-            <p>Fire360 opens pathways for developing AI systems that work when it matters most:</p>
-            
-            <div class="future-grid">
-                <div class="future-card">
-                    <h4>World Models for Safety-Critical Reasoning</h4>
-                    <ul>
-                        <li>Predict fire spread and evolution</li>
-                        <li>Counterfactual reasoning: "What if smoke clears?"</li>
-                        <li>Causal intervention for precise evaluation</li>
-                    </ul>
-                </div>
-                
-                <div class="future-card">
-                    <h4>Episodic Memory Architecture</h4>
-                    <ul>
-                        <li>Neural scene representations for cross-scene retrieval</li>
-                        <li>Memory-augmented networks for degradation tokens</li>
-                        <li>Slot attention for object permanence under occlusion</li>
-                    </ul>
-                </div>
-                
-                <div class="future-card">
-                    <h4>Physics-Informed Vision Models</h4>
-                    <ul>
-                        <li>Integrate material science priors for transformation prediction</li>
-                        <li>Slot-binding mechanisms for tracking deformation</li>
-                        <li>Light transport modeling for visibility estimation</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <!-- Citation -->
-        <div class="content-section">
-            <h2>Citation</h2>
-            <p>If you use Fire360 in your research, please cite:</p>
-            <div class="citation-box">
-                <button class="copy-btn" onclick="copyCitation()">Copy</button>
-                <pre>@misc{tiwari2025fire360benchmarkrobustperception,
-      title={Fire360: A Benchmark for Robust Perception and 
-             Episodic Memory in Degraded 360-Degree Firefighting Videos}, 
-      author={Aditi Tiwari and Farzaneh Masoud and Dac Trong Nguyen 
-              and Jill Kraft and Heng Ji and Klara Nahrstedt},
-      year={2025},
-      eprint={2506.02167},
-      archivePrefix={arXiv},
-      primaryClass={cs.CV},
-      url={https://arxiv.org/abs/2506.02167}, 
+          <div class="card">
+            <div class="card-subtitle">Citation</div>
+            <div class="card-title">BibTeX</div>
+            <pre>
+@inproceedings{tiwari2025fire360,
+  title     = {Fire360: A Benchmark for Robust Perception and Episodic Memory
+               in Degraded 360{\degree} Firefighting Video},
+  author    = {Tiwari, Aditi and Masoud, Farzaneh and Nguyen, Dac Trong and
+               Kraft, Jill and Ji, Heng and Nahrstedt, Klara},
+  booktitle = {Advances in Neural Information Processing Systems},
+  year      = {2025}
 }</pre>
-            </div>
+          </div>
         </div>
-    </div>
+      </div>
+    </section>
 
-    <!-- Footer -->
-    <div class="footer">
-        <div class="container">
-            <p>Fire360 © 2025 | Built with the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a></p>
-            <p style="margin-top: 0.5rem;">University of Illinois Urbana-Champaign • BLENDER Lab</p>
-        </div>
-    </div>
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div>
+        Fire360 · NeurIPS 2025 &nbsp;·&nbsp; UIUC · Illinois Fire Service Institute
+      </div>
+      <div>
+        Contact: <a href="mailto:aditit5@illinois.edu">aditit5@illinois.edu</a>
+      </div>
+    </footer>
+  </main>
 
-    <script>
-        function copyCitation() {
-            const citation = `@misc{tiwari2025fire360benchmarkrobustperception,
-      title={Fire360: A Benchmark for Robust Perception and Episodic Memory in Degraded 360-Degree Firefighting Videos}, 
-      author={Aditi Tiwari and Farzaneh Masoud and Dac Trong Nguyen and Jill Kraft and Heng Ji and Klara Nahrstedt},
-      year={2025},
-      eprint={2506.02167},
-      archivePrefix={arXiv},
-      primaryClass={cs.CV},
-      url={https://arxiv.org/abs/2506.02167}, 
-}`;
-            
-            navigator.clipboard.writeText(citation).then(() => {
-                const btn = document.querySelector('.copy-btn');
-                btn.textContent = 'Copied!';
-                setTimeout(() => {
-                    btn.textContent = 'Copy';
-                }, 2000);
-            });
+  <script>
+    // Reveal elements on scroll (Intersection Observer)
+    const reveals = document.querySelectorAll('.reveal');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
         }
+      });
+    }, { threshold: 0.15 });
 
-        function toggleExpand(button) {
-            button.classList.toggle('active');
-            const content = button.nextElementSibling;
-            content.classList.toggle('active');
-        }
-
-        // Scroll animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.content-section').forEach(section => {
-            section.style.opacity = '0';
-            section.style.transform = 'translateY(30px)';
-            section.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
-            observer.observe(section);
-        });
-    </script>
+    reveals.forEach(el => observer.observe(el));
+  </script>
 </body>
 </html>
