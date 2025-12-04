@@ -97,3 +97,1046 @@
     .nav-links a {
       color: var(--text-muted);
       padding-bottom: 3px;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 1px;
+      background: var(--accent);
+      transition: width var(--transition-fast);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    /* HERO */
+
+    .hero {
+      margin-top: 36px;
+      text-align: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 14px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(242,201,106,0.32);
+      background: radial-gradient(circle at left, rgba(242,201,106,0.2), transparent 55%);
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 14px;
+    }
+
+    .hero-title {
+      font-size: clamp(2.2rem, 3.4vw, 2.8rem);
+      line-height: 1.12;
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+
+    .hero-subtitle {
+      font-size: 0.98rem;
+      color: var(--text-muted);
+      max-width: 40rem;
+      margin: 0 auto 14px;
+    }
+
+    .hero-authors {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+
+    .hero-authors a {
+      text-decoration: underline;
+      text-decoration-style: dotted;
+      text-underline-offset: 3px;
+    }
+
+    .hero-meta-row {
+      font-size: 0.78rem;
+      color: var(--accent-soft);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 26px;
+    }
+
+    .btn {
+      border-radius: var(--radius-pill);
+      padding: 9px 18px;
+      font-size: 0.84rem;
+      border: 1px solid var(--border-subtle);
+      background: linear-gradient(135deg, #f3f3f3, #bababa);
+      color: #050505;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.65);
+    }
+
+    .btn span.icon { font-size: 0.9rem; }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      background: linear-gradient(135deg, #ffffff, #cdcdcd);
+      box-shadow: 0 18px 40px rgba(0,0,0,0.75);
+    }
+
+    .btn-secondary {
+      background: rgba(10,12,15,0.9);
+      color: var(--accent-soft);
+      box-shadow: none;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(20,23,27,0.95);
+      color: var(--accent);
+      box-shadow: 0 14px 34px rgba(0,0,0,0.45);
+    }
+
+    .hero-metrics {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 14px;
+      margin-bottom: 18px;
+      font-size: 0.82rem;
+      color: var(--accent-soft);
+    }
+
+    .metric-pill {
+      padding: 6px 12px;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border-subtle);
+      background: rgba(8,10,12,0.8);
+    }
+
+    /* GENERIC SECTIONS */
+
+    section {
+      margin-top: 56px;
+    }
+
+    .section-header {
+      margin-bottom: 14px;
+    }
+
+    .section-title {
+      font-size: 1.05rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .section-tagline {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-top: 6px;
+      max-width: 34rem;
+    }
+
+    .section-body {
+      font-size: 0.94rem;
+      color: var(--text-muted);
+      max-width: 48rem;
+    }
+
+    .card {
+      background: radial-gradient(circle at top, #171b20 0, #07090b 60%);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-subtle);
+      padding: 18px 18px 16px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .card-title {
+      font-size: 0.96rem;
+      font-weight: 500;
+      margin-bottom: 6px;
+    }
+
+    .card-subtitle {
+      font-size: 0.8rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent-soft);
+      margin-bottom: 4px;
+    }
+
+    .columns-two {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(0, 1.1fr);
+      gap: 24px;
+      align-items: flex-start;
+    }
+
+    @media (max-width: 880px) {
+      .columns-two {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* IMAGE PLACEHOLDERS */
+
+    .figure {
+      margin-top: 16px;
+      margin-bottom: 10px;
+    }
+
+    .figure img {
+      width: 100%;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.04);
+      display: block;
+      background: #0b0e10;
+    }
+
+    .figure-caption {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 6px;
+    }
+
+    /* TABLES */
+
+    .table-wrapper {
+      margin-top: 16px;
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid var(--border-subtle);
+      background: radial-gradient(circle at top, #171b20, #050708);
+      box-shadow: var(--shadow-soft);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.83rem;
+    }
+
+    th, td {
+      padding: 9px 12px;
+      white-space: nowrap;
+    }
+
+    th {
+      text-align: left;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 0.74rem;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border-subtle);
+      background: rgba(4,5,7,0.96);
+    }
+
+    tbody tr {
+      transition: background var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+    }
+
+    tbody tr:nth-child(odd) {
+      background: rgba(255,255,255,0.01);
+    }
+
+    tbody tr:hover {
+      background: rgba(255,255,255,0.03);
+      transform: translateY(-1px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    .row-highlight {
+      background: linear-gradient(90deg, rgba(242,201,106,0.16), rgba(0,0,0,0));
+    }
+
+    .row-group {
+      background: rgba(0,0,0,0.75);
+      font-weight: 500;
+      text-transform: none;
+      letter-spacing: 0.08em;
+    }
+
+    .cell-human {
+      font-weight: 500;
+      color: #ffffff;
+    }
+
+    .cell-metric {
+      color: var(--accent-soft);
+    }
+
+    /* TASK CARDS */
+
+    .task-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 16px;
+    }
+
+    @media (max-width: 800px) {
+      .task-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .task-card {
+      background: linear-gradient(145deg, #15181d, #080a0c);
+      border-radius: 16px;
+      border: 1px solid var(--border-subtle);
+      padding: 14px 14px 12px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .task-title {
+      font-size: 0.94rem;
+      font-weight: 500;
+      margin-bottom: 6px;
+    }
+
+    .task-meta {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .task-text {
+      font-size: 0.84rem;
+      color: var(--text-muted);
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border-subtle);
+      padding: 4px 9px;
+      font-size: 0.74rem;
+      color: var(--accent-soft);
+      margin-top: 6px;
+    }
+
+    .pill-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--gold);
+    }
+
+    /* TOR layout */
+
+    .tor-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr);
+      gap: 22px;
+    }
+
+    @media (max-width: 880px) {
+      .tor-layout { grid-template-columns: 1fr; }
+    }
+
+    /* CODE BLOCK */
+
+    pre {
+      font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 0.8rem;
+      background: #050607;
+      border-radius: 12px;
+      border: 1px solid var(--border-subtle);
+      padding: 12px 14px;
+      overflow-x: auto;
+      color: #d4d4d4;
+    }
+
+    /* FOOTER */
+
+    .footer {
+      margin-top: 52px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border-subtle);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    /* REVEAL ANIMATION */
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <!-- NAVBAR -->
+  <header class="nav">
+    <div class="nav-inner">
+      <div class="nav-left">
+        <div class="nav-dot"></div>
+        <div class="nav-title">Fire360 · NeurIPS 2025 Spotlight</div>
+      </div>
+      <nav class="nav-links">
+        <a href="#overview">Overview</a>
+        <a href="#dataset">Dataset</a>
+        <a href="#tasks">Tasks</a>
+        <a href="#tor">TOR</a>
+        <a href="#results">Results</a>
+        <a href="#resources">Resources</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page">
+    <!-- HERO -->
+    <section class="hero reveal">
+      <div class="hero-badge">
+        <span>NeurIPS 2025 Spotlight · Dataset & Benchmark</span>
+      </div>
+      <h1 class="hero-title">
+        Fire360: Robust Perception & Episodic Memory in Degraded 360° Firefighting Video
+      </h1>
+      <p class="hero-subtitle">
+        A large-scale benchmark of 360° firefighter training videos that probes spatial grounding,
+        temporal understanding, safety-critical reasoning, and transformation-invariant retrieval
+        in the environments where reliability matters most.
+      </p>
+      <p class="hero-authors">
+        <a href="https://adititiwari19.github.io/" target="_blank" rel="noreferrer">Aditi Tiwari</a>,
+        Farzaneh Masoud, Dac Trong Nguyen, Jill Kraft,
+        <a href="https://siebelschool.illinois.edu/about/people/faculty/hengji" target="_blank" rel="noreferrer">Heng Ji</a>,
+        <a href="https://siebelschool.illinois.edu/about/people/faculty/klara" target="_blank" rel="noreferrer">Klara Nahrstedt</a>
+        <br/>
+        University of Illinois Urbana–Champaign · Illinois Fire Service Institute
+      </p>
+      <div class="hero-meta-row">
+        228 videos · 50 hours · 5 tasks · 43.7-point human–model gap on TOR
+      </div>
+
+      <div class="hero-buttons">
+        <a class="btn" href="https://arxiv.org/abs/2506.02167" target="_blank" rel="noreferrer">
+          <span class="icon">⬇</span><span>Paper (arXiv)</span>
+        </a>
+        <a class="btn btn-secondary" href="https://uofi.app.box.com/v/fire360dataset" target="_blank" rel="noreferrer">
+          <span class="icon">🎞</span><span>Dataset Download</span>
+        </a>
+        <a class="btn btn-secondary" href="https://neurips.cc/virtual/2025/loc/san-diego/poster/121673" target="_blank" rel="noreferrer">
+          <span class="icon">⭐</span><span>NeurIPS Spotlight & Poster</span>
+        </a>
+      </div>
+
+      <div class="hero-metrics">
+        <div class="metric-pill">360° real-world firefighter drills</div>
+        <div class="metric-pill">Dataset + benchmark suite</div>
+        <div class="metric-pill">Safety-critical perception & memory</div>
+      </div>
+    </section>
+
+    <!-- OVERVIEW / MOTIVATION -->
+    <section id="overview" class="reveal">
+      <div class="section-header">
+        <h2 class="section-title">Overview</h2>
+        <p class="section-tagline">
+          Fire360 asks a simple question: can modern multimodal models remain reliable when smoke,
+          darkness, and debris make perception hardest—exactly when humans need them most?
+        </p>
+      </div>
+      <div class="section-body">
+        <p>
+          Each year, tens of thousands of firefighters are injured in the line of duty, often when
+          visibility collapses and situational perception breaks down. Existing video benchmarks
+          typically assume clean, front-facing views or synthetic scenes, making it hard to study
+          model behavior in the degraded 360° environments where decisions are truly consequential.
+        </p>
+        <br/>
+        <p>
+          Fire360 is built from professionally recorded firefighter training sessions with certified
+          instructors, covering indoor rescues and outdoor operations across day, night, dense
+          smoke, and post-fire overhaul. The benchmark defines five tasks—VQA, temporal captioning,
+          object localization, safety-critical reasoning, and transformed object retrieval (TOR)—
+          isolating where human experts retain robust understanding and state-of-the-art models fail.
+        </p>
+      </div>
+    </section>
+
+    <!-- DATASET -->
+    <section id="dataset" class="reveal">
+      <div class="section-header">
+        <h2 class="section-title">Dataset</h2>
+        <p class="section-tagline">
+          228 professionally recorded 360° firefighter training videos annotated for actions,
+          objects, and environmental degradation.
+        </p>
+      </div>
+
+      <!-- Example frames (Figure 1) -->
+      <div class="figure">
+        <img src="images/fire360_example_frames.jpg" alt="Example frames from Fire360: outdoor day, night operation, zero visibility, indoor drills, charred scenes, and smoke obstruction." />
+        <div class="figure-caption">
+          Figure 1 (placeholder): Example Fire360 frames across outdoor day/night, zero-visibility,
+          indoor charred scenes, and smoke-obstructed training environments. Replace this image
+          with your actual montage.
+        </div>
+      </div>
+
+      <!-- Dataset comparison table (Table 1) -->
+      <div class="card" style="margin-top: 26px;">
+        <div class="card-subtitle">Positioning</div>
+        <div class="card-title">Comparison with existing video datasets</div>
+        <p class="section-body" style="margin-top: 6px;">
+          Fire360 complements prior video resources by jointly offering 360° views, egocentric and
+          third-person perspectives, synchronized audio, and explicitly safety-critical events.
+        </p>
+
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Dataset</th>
+                <th>Third-Person</th>
+                <th>360°</th>
+                <th>Egocentric</th>
+                <th>Video</th>
+                <th>Audio</th>
+                <th>Real-world</th>
+                <th>Safety-Critical</th>
+                <th>Duration (s)</th>
+                <th>Public</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Ego4D</td>
+                <td>✗</td><td>✗</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>✗</td><td>10,800,000</td><td>✓</td>
+              </tr>
+              <tr>
+                <td>EPIC-Kitchens</td>
+                <td>✗</td><td>✗</td><td>✓</td><td>✓</td><td>✗</td><td>✓</td><td>✗</td><td>712,800</td><td>✓</td>
+              </tr>
+              <tr>
+                <td>360+x</td>
+                <td>✓</td><td>✓</td><td>✗</td><td>✓</td><td>✗</td><td>✗</td><td>✗</td><td>244,800</td><td>✓</td>
+              </tr>
+              <tr>
+                <td>HACS++</td>
+                <td>✓</td><td>✗</td><td>✗</td><td>✓</td><td>✗</td><td>✗</td><td>✗</td><td>500,400</td><td>✓</td>
+              </tr>
+              <tr class="row-highlight">
+                <td><strong>Fire360 (Ours)</strong></td>
+                <td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td><strong>180,000</strong></td><td>✓</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Dataset stats (Figure 3) -->
+      <div class="card" style="margin-top: 26px;">
+        <div class="card-subtitle">Content Distribution</div>
+        <div class="card-title">Scene and action statistics</div>
+        <div class="columns-two" style="margin-top: 10px;">
+          <div>
+            <div class="figure">
+              <img src="images/fire360_dataset_stats.png" alt="Donut charts for Fire360 scene categories (indoor vs outdoor day/night) and action categories with counts and percentages." />
+              <div class="figure-caption">
+                Figure 3 (placeholder): Scene distribution (indoor rescue vs outdoor operations) and
+                action categories (door breaching, ladder operations, civilian rescue, hose handling,
+                safety verification, situational assessment, gear deployment, team communication).
+              </div>
+            </div>
+          </div>
+          <div class="section-body">
+            <p>
+              Fire360 balances <strong>indoor rescue/training (43.9%)</strong> with
+              <strong>outdoor operations at night (28.5%)</strong> and
+              <strong>outdoor operations during the day (27.6%)</strong>, ensuring that models must
+              handle both low-light interiors and open-air incident grounds.
+            </p>
+            <br/>
+            <p>
+              Eight safety-relevant action categories are annotated, including door breaching,
+              ladder operations, civilian rescue, hose handling, safety verification, situational
+              assessment, gear deployment, and team communication. These labels support both
+              temporal reasoning and fine-grained analysis of model failure modes.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TASKS -->
+    <section id="tasks" class="reveal">
+      <div class="section-header">
+        <h2 class="section-title">Benchmark Tasks</h2>
+        <p class="section-tagline">
+          Five tasks isolate complementary capabilities: 360° VQA, temporal action captioning,
+          localization under distortion, safety-critical reasoning, and transformed object
+          retrieval (TOR).
+        </p>
+      </div>
+
+      <div class="task-grid">
+        <div class="task-card">
+          <div class="task-title">360° Visual Question Answering (VQA)</div>
+          <div class="task-meta">Spatial reasoning · Checklist queries</div>
+          <p class="task-text">
+            Models answer expert-authored questions about presence, visibility, and protocol
+            adherence in single equirectangular frames
+            (e.g., “Is a clear egress path visible through the smoke?”).
+          </p>
+          <div class="pill"><span class="pill-dot"></span>Metric: Top-1 accuracy</div>
+        </div>
+
+        <div class="task-card">
+          <div class="task-title">Temporal Action Captioning</div>
+          <div class="task-meta">Procedure summarization · 10–20s clips</div>
+          <p class="task-text">
+            Given short degraded clips, models must describe what firefighters are doing in
+            natural language, aligned with standardized training procedures.
+          </p>
+          <div class="pill"><span class="pill-dot"></span>Metric: BLEU-4</div>
+        </div>
+
+        <div class="task-card">
+          <div class="task-title">Object Localization under Distortion</div>
+          <div class="task-meta">Detection · Smoke & geometric stretch</div>
+          <p class="task-text">
+            Category-agnostic localization of safety gear (SCBA, helmets, hoses) in 360°
+            equirectangular frames, where poles exhibit strong geometric distortion.
+          </p>
+          <div class="pill"><span class="pill-dot"></span>Metric: Mean IoU</div>
+        </div>
+
+        <div class="task-card">
+          <div class="task-title">Safety-Critical Reasoning</div>
+          <div class="task-meta">Checklist-based compliance</div>
+          <p class="task-text">
+            Models decide whether a frame/clip is safe and justify their decision using a
+            firefighter checklist (e.g., sealed gas mask, three-point contact on ladders).
+          </p>
+          <div class="pill"><span class="pill-dot"></span>Metric: Checklist accuracy</div>
+        </div>
+
+        <div class="task-card">
+          <div class="task-title">Transformed Object Retrieval (TOR)</div>
+          <div class="task-meta">Episodic memory · Core contribution</div>
+          <p class="task-text">
+            Given a clean exemplar of an object (helmet, hose, extinguisher) and an unpaired 360°
+            scene after fire damage, the model must retrieve the degraded instance without seeing
+            the transformation.
+          </p>
+          <div class="pill"><span class="pill-dot"></span>Metric: Top-1 retrieval accuracy</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TOR SECTION -->
+    <section id="tor" class="reveal">
+      <div class="section-header">
+        <h2 class="section-title">Transformed Object Retrieval (TOR)</h2>
+        <p class="section-tagline">
+          Episodic memory under irreversible physical change: can a model still find a helmet once
+          fire, smoke, and debris have warped its appearance?
+        </p>
+      </div>
+
+      <div class="tor-layout">
+        <div>
+          <div class="figure">
+            <img src="images/fire360_tor_diagram.png" alt="Diagram of the TOR task: 360° frames, a reference catalogue of pristine objects, and retrieval of the degraded object region." />
+            <div class="figure-caption">
+              Figure 6 (placeholder): Illustration of TOR. A world model with episodic memory
+              receives (i) 360° frames from a post-fire scene and (ii) a catalogue of pristine
+              reference objects. Given a natural-language query such as
+              “Locate the red firefighter helmet in the post-fire scene,” the model must mark the
+              correct degraded helmet region.
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-subtitle">Example</div>
+          <div class="card-title">From pristine helmet to charred silhouette</div>
+          <p class="section-body">
+            In a typical example, the reference catalogue provides a clean side view of a red
+            firefighter helmet. The target frame shows the same helmet after an interior room burn:
+            the visor is blackened, reflections are gone, and surrounding walls have collapsed.
+            Pipes, lamps, and other rounds shapes now compete as distractors.
+          </p>
+          <br/>
+          <p class="section-body">
+            Humans successfully retrieve the correct region in <strong>83.5%</strong> of cases.
+            GPT-4o achieves only <strong>39.8%</strong>, often confusing pipes or background
+            clutter for the helmet. CLIP and BLIP-2 perform worse, revealing that current models
+            lack transformation-invariant object identity when temporal continuity is removed.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESULTS -->
+    <section id="results" class="reveal">
+      <div class="section-header">
+        <h2 class="section-title">Results</h2>
+        <p class="section-tagline">
+          Across tasks, models trail human experts by 40–60 points, with the largest gaps in
+          safety-critical reasoning and transformed object retrieval.
+        </p>
+      </div>
+
+      <!-- Main model results (Table 3-style) -->
+      <div class="card">
+        <div class="card-subtitle">Core Models</div>
+        <div class="card-title">Performance across five Fire360 tasks</div>
+        <div class="table-wrapper" style="margin-top: 10px;">
+          <table>
+            <thead>
+              <tr>
+                <th>Model</th>
+                <th>Model Score</th>
+                <th>Human Score</th>
+                <th>Metric</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- VQA -->
+              <tr class="row-group">
+                <td colspan="4">Task: Visual Question Answering (VQA)</td>
+              </tr>
+              <tr class="row-highlight">
+                <td>GPT-4o</td>
+                <td>53.8%</td>
+                <td class="cell-human">91.4%</td>
+                <td class="cell-metric">Top-1 accuracy</td>
+              </tr>
+              <tr>
+                <td>Qwen-VL</td>
+                <td>47.2%</td>
+                <td class="cell-human">91.4%</td>
+                <td class="cell-metric">Top-1 accuracy</td>
+              </tr>
+              <tr>
+                <td>LLaVA-v1.5-13B</td>
+                <td>50.3%</td>
+                <td class="cell-human">91.4%</td>
+                <td class="cell-metric">Top-1 accuracy</td>
+              </tr>
+              <tr>
+                <td>BLIP-2 (OPT-6.7B)</td>
+                <td>42.7%</td>
+                <td class="cell-human">91.4%</td>
+                <td class="cell-metric">Top-1 accuracy</td>
+              </tr>
+
+              <!-- TAC -->
+              <tr class="row-group">
+                <td colspan="4">Task: Temporal Action Captioning</td>
+              </tr>
+              <tr class="row-highlight">
+                <td>GLaMM-7B</td>
+                <td>0.341</td>
+                <td class="cell-human">0.85</td>
+                <td class="cell-metric">BLEU-4</td>
+              </tr>
+
+              <!-- Localization -->
+              <tr class="row-group">
+                <td colspan="4">Task: Object Localization under Distortion</td>
+              </tr>
+              <tr class="row-highlight">
+                <td>Grounding DINO</td>
+                <td>38.4%</td>
+                <td class="cell-human">85.2%</td>
+                <td class="cell-metric">Mean IoU</td>
+              </tr>
+
+              <!-- Safety -->
+              <tr class="row-group">
+                <td colspan="4">Task: Safety-Critical Reasoning</td>
+              </tr>
+              <tr>
+                <td>GPT-4o (prompted)</td>
+                <td>28.9%</td>
+                <td class="cell-human">94.6%</td>
+                <td class="cell-metric">Checklist accuracy</td>
+              </tr>
+              <tr class="row-highlight">
+                <td>Qwen-VL</td>
+                <td>32.5%</td>
+                <td class="cell-human">94.6%</td>
+                <td class="cell-metric">Checklist accuracy</td>
+              </tr>
+
+              <!-- TOR -->
+              <tr class="row-group">
+                <td colspan="4">Task: Transformed Object Retrieval (TOR)</td>
+              </tr>
+              <tr class="row-highlight">
+                <td>GPT-4o</td>
+                <td>39.8%</td>
+                <td class="cell-human">83.5%</td>
+                <td class="cell-metric">Retrieval accuracy</td>
+              </tr>
+              <tr>
+                <td>CLIP (ViT-B/32)</td>
+                <td>32.5%</td>
+                <td class="cell-human">83.5%</td>
+                <td class="cell-metric">Retrieval accuracy</td>
+              </tr>
+              <tr>
+                <td>BLIP-2 (OPT-6.7B)</td>
+                <td>35.1%</td>
+                <td class="cell-human">83.5%</td>
+                <td class="cell-metric">Retrieval accuracy</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Heatmap explanation (Figure 5) -->
+      <div class="columns-two" style="margin-top: 22px;">
+        <div class="section-body">
+          <p>
+            The VQA heatmaps reveal that GPT-4o’s accuracy erodes quickly as smoke density and
+            darkness increase, while human experts remain above 80% even at the highest degradation
+            levels. The rightmost panel highlights a growing human–model gap that reaches
+            over 70 points in the most challenging conditions.
+          </p>
+        </div>
+        <div>
+          <div class="figure">
+            <img src="images/fire360_vqa_heatmap.png" alt="Three heatmaps showing GPT-4o model performance, human performance, and their accuracy gap across smoke and light levels." />
+            <div class="figure-caption">
+              Figure 5 (placeholder): Degradation-aware VQA accuracy on 360° equirectangular
+              frames for GPT-4o (left), human experts (center), and the resulting accuracy gap
+              (right).
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Extended model families (Table 4) -->
+      <div class="card" style="margin-top: 26px;">
+        <div class="card-subtitle">Extended Architectures</div>
+        <div class="card-title">Persistent gaps across model families</div>
+        <p class="section-body" style="margin-top: 6px;">
+          Evaluating additional captioners, detectors, and safety models confirms that Fire360
+          surfaces degradation-induced failures independent of architecture or training data.
+        </p>
+        <div class="table-wrapper" style="margin-top: 10px;">
+          <table>
+            <thead>
+              <tr>
+                <th>Model</th>
+                <th>Score</th>
+                <th>Human</th>
+                <th>Metric</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- VQA -->
+              <tr class="row-group">
+                <td colspan="4">Task: Visual Question Answering (VQA)</td>
+              </tr>
+              <tr class="row-highlight">
+                <td>InstructBLIP</td>
+                <td>48.6%</td>
+                <td class="cell-human">91.4%</td>
+                <td class="cell-metric">Top-1 accuracy</td>
+              </tr>
+              <tr>
+                <td>Kosmos-2.5</td>
+                <td>47.5%</td>
+                <td class="cell-human">91.4%</td>
+                <td class="cell-metric">Top-1 accuracy</td>
+              </tr>
+
+              <!-- TAC -->
+              <tr class="row-group">
+                <td colspan="4">Task: Temporal Action Captioning</td>
+              </tr>
+              <tr class="row-highlight">
+                <td>SwinBERT</td>
+                <td>0.315</td>
+                <td class="cell-human">0.85</td>
+                <td class="cell-metric">BLEU-4</td>
+              </tr>
+              <tr>
+                <td>ProgressCaptioner</td>
+                <td>0.288</td>
+                <td class="cell-human">0.85</td>
+                <td class="cell-metric">BLEU-4</td>
+              </tr>
+
+              <!-- Localization -->
+              <tr class="row-group">
+                <td colspan="4">Task: Object Localization</td>
+              </tr>
+              <tr class="row-highlight">
+                <td>OWLv2</td>
+                <td>39.8%</td>
+                <td class="cell-human">85.2%</td>
+                <td class="cell-metric">Mean IoU</td>
+              </tr>
+              <tr>
+                <td>YOLO-World</td>
+                <td>36.5%</td>
+                <td class="cell-human">85.2%</td>
+                <td class="cell-metric">Mean IoU</td>
+              </tr>
+
+              <!-- Safety -->
+              <tr class="row-group">
+                <td colspan="4">Task: Safety-Critical Reasoning</td>
+              </tr>
+              <tr class="row-highlight">
+                <td>Claude-3 Sonnet</td>
+                <td>33.0%</td>
+                <td class="cell-human">94.6%</td>
+                <td class="cell-metric">Checklist accuracy</td>
+              </tr>
+              <tr>
+                <td>Llama-Guard-3-8B</td>
+                <td>27.4%</td>
+                <td class="cell-human">94.6%</td>
+                <td class="cell-metric">Checklist accuracy</td>
+              </tr>
+
+              <!-- TOR -->
+              <tr class="row-group">
+                <td colspan="4">Task: Transformed Object Retrieval (TOR)</td>
+              </tr>
+              <tr class="row-highlight">
+                <td>CoLLM</td>
+                <td>35.7%</td>
+                <td class="cell-human">83.5%</td>
+                <td class="cell-metric">Retrieval accuracy</td>
+              </tr>
+              <tr>
+                <td>MCoT-RE</td>
+                <td>33.5%</td>
+                <td class="cell-human">83.5%</td>
+                <td class="cell-metric">Retrieval accuracy</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESOURCES / TOOLKIT / BIBTEX -->
+    <section id="resources" class="reveal">
+      <div class="section-header">
+        <h2 class="section-title">Toolkit & Resources</h2>
+        <p class="section-tagline">
+          Scripts, prompt templates, and evaluation harnesses to reproduce Fire360 results and
+          plug in new models.
+        </p>
+      </div>
+
+      <div class="columns-two">
+        <div class="card">
+          <div class="card-subtitle">Toolkit</div>
+          <div class="card-title">What’s included</div>
+          <ul class="section-body" style="list-style: none; padding-left: 0; margin-top: 6px;">
+            <li>• Equirectangular → rectilinear conversion utilities.</li>
+            <li>• Evaluation scripts for all five tasks with degradation-aware splits.</li>
+            <li>• Grounding DINO configuration and proposal extraction for TOR.</li>
+            <li>• Prompt templates for VQA, safety checklists, and retrieval queries.</li>
+            <li>• Example logs and analysis notebooks for model comparison.</li>
+          </ul>
+          <br/>
+          <p class="section-body">
+            Running the full benchmark requires roughly ~4 GPU-hours on A40s or ~2.5 GPU-hours on
+            A100s; raw video occupies ~400GB.
+          </p>
+        </div>
+
+        <div>
+          <div class="card" style="margin-bottom: 18px;">
+            <div class="card-subtitle">Ethics</div>
+            <div class="card-title">Responsible release</div>
+            <p class="section-body" style="margin-top: 6px;">
+              All footage documents professional training drills with informed consent. No
+              personally identifiable information is included; participants appear in protective
+              gear. Fire360 is released for research on robust, safety-critical multimodal systems
+              and may not be used for surveillance, profiling, or non-consensual monitoring.
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="card-subtitle">Citation</div>
+            <div class="card-title">BibTeX</div>
+            <pre>
+@misc{tiwari2025fire360benchmarkrobustperception,
+  title         = {Fire360: A Benchmark for Robust Perception and Episodic Memory
+                   in Degraded 360-Degree Firefighting Videos},
+  author        = {Aditi Tiwari and Farzaneh Masoud and Dac Trong Nguyen
+                   and Jill Kraft and Heng Ji and Klara Nahrstedt},
+  year          = {2025},
+  eprint        = {2506.02167},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.CV},
+  url           = {https://arxiv.org/abs/2506.02167},
+}</pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div>
+        Fire360 · NeurIPS 2025 Spotlight &nbsp;·&nbsp; UIUC · Illinois Fire Service Institute
+      </div>
+      <div>
+        Contact: <a href="mailto:aditit5@illinois.edu">aditit5@illinois.edu</a>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    // Reveal elements on scroll
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    reveals.forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
